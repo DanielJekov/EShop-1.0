@@ -1,0 +1,82 @@
+﻿@model EShop.Models.ServiceModels.Articles.ArticleFormModel
+@inject EShop.Services.Categories.ICategoryService categoryService
+@{
+    this.ViewData["Title"] = "Създаване на артикул";
+
+    var categories = categoryService.All();
+}
+
+<div class="col-12 pt-3 pr-5">
+    <form asp-area="Administrator" asp-controller="Article" asp-action="Create" enctype="multipart/form-data" method="post">
+
+        <div class="form-group">
+            <h6>Категория</h6>
+            <select asp-for="CategoryId" class="form-control">
+                @foreach (var category in categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+            <span asp-validation-for="CategoryId" class="small text-danger"></span>
+        </div>
+
+        <div class="form-check  pb-3">
+            <input asp-for="@Model.IsOnHeadPage" class="form-check-input" type="checkbox" id="IsOnHeadPage" checked>
+            <label class="form-check-label h6" for="IsOnHeadPage">
+                На начална страница
+            </label>
+        </div>
+
+        <div class="form-group">
+            <h6>Име и модел на артикул</h6>
+            <input asp-for="Name" class="form-control" placeholder="12/65 R+ FORMULA">
+            <span asp-validation-for="Name" class="small text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <h6>Описание</h6>
+            <textarea asp-for="Description" class="form-control" placeholder="Текст..."> </textarea>
+            <span asp-validation-for="Description" class="small text-danger"></span>
+        </div>
+
+        <div class="form-group" id="preview-picture1">
+            <div class="h6">Качи снимка:</div>
+            <input type="file" asp-for="@Model.Picture" id="image1" class="image-upload" />
+        </div>
+
+        <div class="form-group">
+            <h6>Цена</h6>
+            <input asp-for="Price" class="form-control" placeholder="100,99">
+            <span asp-validation-for="Price" class="small text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <h6>Eko Цена - (по избор)</h6>
+            <input asp-for="EcoPrice" class="form-control" placeholder="100,99">
+            <span asp-validation-for="Price" class="small text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <h6>Намалена цена - (по избор)</h6>
+            <input asp-for="DiscountPrice" class="form-control" placeholder="99,99">
+            <span asp-validation-for="DiscountPrice" class="small text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <div class="input_fields_wrap mb-2">
+                <h6>Характеристики</h6>
+            </div>
+            <button class="add_field_button btn btn-success mb-3">Добави поле</button>
+            <input type="text" style="visibility: hidden" id="positioner" value="" />
+        </div>
+
+        <input type="submit" class="btn btn-primary mb-2" value="Създай" />
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="~/js/param.add.fields-1.3.min.js"></script>
+    <script src="~/js/img.upload-1.0.min.js"></script>
+}

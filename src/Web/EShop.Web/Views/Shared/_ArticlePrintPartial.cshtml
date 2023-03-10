@@ -1,0 +1,73 @@
+﻿@model ArticleViewModel
+@{
+    var currPath = this.Context.Request.Path;
+    var currQueryParams = this.Context.Request.QueryString;
+}
+<div class=" mb-4 col-sm-5 col-md-3 col-lg-3 col-xl-3">
+    <div class="card">
+        @if (this.User.IsInRole(AdministratorRoleName))
+        {
+            <form class="text-right" asp-area="Administrator" asp-controller="Article" asp-action="Update" method="get">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <button class="btn col-2">
+                    <i class="fas fa-edit"></i>
+                </button>
+            </form>
+        }
+        <a asp-area="" asp-controller="Article" asp-action="Specification" asp-route-nomer="@Model.Id">
+            <img class="card-img-top img-fluid" src="@Model.PictureUrl" alt="~/no-image-icon.png">
+        </a>
+        <div class="card-body text-left">
+            <h6>@Model.Name</h6>
+            <br>
+            <ul class="list-unstyled">
+                @if (Model.DiscountPrice.HasValue)
+                {
+                    <li><del><h6 class="font-weight-normal">Цена: @Model.Price лв</h6></del></li>
+
+                    if (Model.EcoPrice.HasValue)
+                    {
+                        <li><h6 class="font-weight-normal" style="color: green">Еко цена: @Model.EcoPrice лв</h6></li>
+                    }
+                    <li><h6 class="font-weight-normal" style="color: crimson">Промо: @Model.DiscountPrice лв</h6></li>
+                }
+                else if (Model.EcoPrice.HasValue)
+                {
+                    <li><h6 class="font-weight-normal">Цена: @Model.Price лв</h6></li>
+                    <li><h6 class="font-weight-normal" style="color: green">Еко цена: @Model.EcoPrice лв</h6></li>
+                }
+                else
+                {
+                    <li><h6 class="font-weight-normal">Цена: @Model.Price лв</h6></li>
+                }
+            </ul>
+            <br>
+            @if (!this.User.Identity.IsAuthenticated)
+            {
+                <div class="text-center">
+                    <a class="btn btn-warning col-6" asp-area="" asp-controller="Article" asp-action="Specification" asp-route-nomer="@Model.Id" asp-fragment="quickPurchase">
+                        <i class="fas fa-cart-plus"></i>
+                    </a>
+                </div>
+            }
+            else
+            {
+                <form class="text-center" asp-area="" asp-controller="Bag" asp-action="Add" method="post">
+                    <input type="hidden" name="articleId" value="@Model.Id" />
+                    <button class="btn btn-warning col-6">
+                        <i class="fas fa-cart-plus"></i>
+                    </button>
+                </form>
+            }
+        </div>
+    </div>
+</div>
+
+@{
+    @*<form class="text-center" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@currPath@currQueryParams" method="get">
+            <input type="hidden" name="articleId" value="@Model.Id" />
+            <button class="btn btn-warning text-center col-6">
+
+            </button>
+        </form>*@
+}

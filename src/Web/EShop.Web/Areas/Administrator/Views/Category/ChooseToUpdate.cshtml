@@ -1,0 +1,19 @@
+﻿@model EShop.Models.ServiceModels.Categories.CategoryFormModel
+@inject EShop.Services.Categories.ICategoryService categoryService
+@{
+    this.ViewData["Title"] = "Избор за редакция";
+    var categories = categoryService.All();
+}
+
+<form asp-area="Administrator" asp-controller="Category" asp-action="Update" method="get">
+    <div class="form-group">
+        <label>Избери артикул:</label>
+        <select asp-for="Id" class="form-control">
+            @foreach (var category in categories)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+    </div>
+    <input type="submit" class="btn btn-primary mb-2" value="Избери" />
+</form>

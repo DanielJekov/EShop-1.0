@@ -1,0 +1,87 @@
+﻿@model EShop.Models.ViewModels.ArticleViewModel
+@{
+    this.ViewData["Title"] = Model.Name;
+    var currPath = this.Context.Request.Path;
+    var currQueryParams = this.Context.Request.QueryString;
+}
+
+<div class="row">
+    <div class="col-4 col-md-3 ml-md-5">
+        <img class="card-img-top embed-responsive-4by3" src="@Model.PictureUrl" alt="\no-image-icon.png">
+    </div>
+    <div class="col-8">
+        <div class="card-header text-dark h6" style="background-color: lightgray">@Model.Name</div>
+        <br>
+        @if (Model.DiscountPrice.HasValue)
+        {
+            <del><h6>Цена: @Model.Price лв</h6> </del>
+
+            if (Model.EcoPrice.HasValue)
+            {
+
+                <h6 style="color: green">Еко цена: @Model.EcoPrice лв</h6>
+            }
+            <h6 style="color: crimson">Промо: @Model.DiscountPrice лв</h6>
+        }
+        else if (Model.EcoPrice.HasValue)
+        {
+            <h6>Цена: @Model.Price лв</h6>
+            <h6 style="color: green">Еко цена: @Model.EcoPrice лв</h6>
+        }
+        else
+        {
+            <h6>Цена: @Model.Price лв</h6>
+        }
+        <br>
+        @if (!this.User.Identity.IsAuthenticated)
+        {
+            <a asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@currPath@currQueryParams" class="btn btn-warning"> Добави в количката</a>
+        }
+        else
+        {
+            <form asp-area="" asp-controller="Bag" asp-action="Add" method="post">
+                <input type="hidden" name="articleId" value="@Model.Id" />
+                <button class="btn btn-warning">
+                    Добави в количката
+                </button>
+            </form>
+        }
+
+        <br>
+        <br>
+        <p>
+            @Model.Description
+        </p>
+
+    </div>
+    <partial name="_QuickPurchaseForm" model="@new EShop.Models.ServiceModels.Bag.QuickPurchaseInputModel()" />
+    @if (Model.Parameters.Count > 0)
+    {
+        <div class="col-12 pt-5 col-md-11 ml-md-5">
+            <table class="table">
+                <thead style="background-color: lightgray">
+                    <tr>
+                        <th class="text-center text-dark" colspan="2">Характеристики</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    @foreach (var parameter in Model.Parameters)
+                    {
+                        <tr>
+                            <td>
+                                <h6>@parameter.Key</h6>
+                            </td>
+                            <td>
+                                <span>@parameter.Value</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

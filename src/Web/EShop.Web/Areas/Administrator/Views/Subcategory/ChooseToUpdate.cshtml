@@ -1,0 +1,19 @@
+﻿@model EShop.Models.ServiceModels.Subcategories.SubcategoryFormModel
+@inject EShop.Services.Subcategory.ISubcategoryService subcategoryService
+@{
+    this.ViewData["Title"] = "Избор за редакция";
+    var subcategories = subcategoryService.GetAll();
+}
+
+<form asp-area="Administrator" asp-controller="Subcategory" asp-action="Update" method="get">
+    <div class="form-group">
+        <label>Избери артикул:</label>
+        <select asp-for="Id" class="form-control">
+            @foreach (var subcategory in subcategories)
+            {
+                <option value="@subcategory.Id">@subcategory.Name</option>
+            }
+        </select>
+    </div>
+    <input type="submit" class="btn btn-primary mb-2" value="Избери" />
+</form>

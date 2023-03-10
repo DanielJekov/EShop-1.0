@@ -1,0 +1,26 @@
+﻿@model EShop.Models.ServiceModels.Bag.StatusFormModel
+@if ((int)(this.Model.Status) == 1)
+{
+    <button type="button" class="badge btn-warning" data-toggle="modal" data-target="#exampleModalCenter-@Model.PurchaseId">
+       Обработва се 
+    </button>
+}
+else if ((int)(this.Model.Status) == 2)
+{
+    <button type="button" class="badge btn-primary" data-toggle="modal" data-target="#exampleModalCenter-@Model.PurchaseId">
+        Изпратена
+    </button>
+}
+else if ((int)(this.Model.Status) == 3)
+{
+<button type="button" class="badge btn-success" data-toggle="modal" data-target="#exampleModalCenter-@Model.PurchaseId">
+    Приключена
+</button>
+}
+else if ((int)(this.Model.Status) == 4)
+{
+    <button type="button" class="badge btn-danger" data-toggle="modal" data-target="#exampleModalCenter-@Model.PurchaseId">
+        Отказана
+    </button>
+}
+

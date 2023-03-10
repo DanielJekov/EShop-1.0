@@ -1,0 +1,147 @@
+﻿@model EShop.Models.ServiceModels.Articles.ArticleFormModel
+@inject EShop.Services.Categories.ICategoryService categoryService
+@inject EShop.Services.Subcategory.ISubcategoryService subcategoryService
+@{
+
+    this.ViewData["Title"] = $"Редакция на {Model.Name}";
+
+    var categories = categoryService.All();
+    var subcategories = subcategoryService.GetAll();
+    string subcategoryName = string.Empty;
+    @if (Model.SubcategoryId != null)
+    {
+        subcategoryName = subcategories.Where(c => c.Id == Model.SubcategoryId).FirstOrDefault().Name;
+    }
+    else
+    {
+        subcategoryName = "Няма";
+    }
+}
+
+<form asp-area="Administrator" asp-controller="Article" asp-action="Update" enctype="multipart/form-data" method="post">
+
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <div class="form-check  pb-3">
+        <input asp-for="@Model.IsOnHeadPage" class="form-check-input" type="checkbox" id="IsOnHeadPage" checked>
+        <label class="form-check-label h6" for="IsOnHeadPage">
+            На начална страница
+        </label>
+    </div>
+
+    <div class="form-group">
+        <h6>Име на артикул</h6>
+        <input class="form-control" id="disabledInput" type="text" placeholder="@Model.Name" disabled>
+
+        <h6>Ново Име</h6>
+        <input asp-for="@Model.Name" type="text" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <h6>Описание</h6>
+        <textarea asp-for="Description" class="form-control" placeholder="Текст..."> </textarea>
+        <span asp-validation-for="Description" class="small text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <h6>Редовна цена</h6>
+        <input class="form-control" id="disabledInput" type="text" placeholder="@Model.Price" disabled>
+
+        <h6>Нова редовна цена</h6>
+        <input asp-for="Price" type="text" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <h6>Еко цена</h6>
+        <input class="form-control" id="disabledInput" type="text" placeholder="@Model.EcoPrice лв" disabled>
+
+        <h6>Нова на еко цена</h6>
+        <input asp-for="EcoPrice" type="text" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <h6>Намалена цена</h6>
+        <input class="form-control" id="disabledInput" type="text" placeholder="@Model.DiscountPrice" disabled>
+
+        <h6>Нова на намалена цена</h6>
+        <input asp-for="DiscountPrice" type="text" class="form-control">
+    </div>
+    <div class="form-group" id="preview-picture1">
+        <div class="h6">Смяна на снимка:</div>
+        <input type="file" asp-for="@Model.Picture" id="image1" class="image-upload" />
+    </div>
+    <div class="form-group">
+        <h6>Текуща категория</h6>
+        <input class="form-control" id="disabledInput" type="text" placeholder="@categories.Where(c => c.Id == Model.CategoryId).FirstOrDefault().Name" disabled>
+
+        <h6>Избери нова категория:</h6>
+        <select asp-for="@Model.CategoryId" class="form-control">
+            <option value="@Model.CategoryId">Подразбиране</option>
+            @foreach (var category in categories)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <h6>Текуща подкатегория</h6>
+        <input class="form-control" id="disabledInput" type="text" placeholder="@subcategoryName" disabled>
+
+        @if (Model.SubcategoryId == null)
+        {
+            <h6>Добави подкатегория:</h6>
+            <select asp-for="@Model.SubcategoryId" class="form-control">
+                <option value="@Model.SubcategoryId">Подразбиране</option>
+                @foreach (var subcategory in subcategories)
+                {
+                    <option value="@subcategory.Id">@subcategory.Name</option>
+                }
+            </select>
+        }
+        else
+        {
+            <h6>Смени с друга подкатегория</h6>
+            <select asp-for="@Model.SubcategoryId" class="form-control">
+                <option value="@Model.SubcategoryId">Подразбиране</option>
+                @foreach (var subcategory in subcategories)
+                {
+                    <option value="@subcategory.Id">@subcategory.Name</option>
+                }
+            </select>
+        }
+    </div>
+    <div class="form-group">
+        <div class="input_fields_wrap mb-2">
+            <h6>Характеристики</h6>
+            @{int maxCountOfKeyValuePairs = 20;}
+            @for (int i = 1; i <= maxCountOfKeyValuePairs; i++)
+            {
+                string key = "Key" + i;
+                string value = "Value" + i;
+
+                if (!(Model.GetType().GetProperty(key).GetValue(Model) is null))
+                {
+                    var lastToRemove = "lastToRemove" + i;
+                    <div class="@lastToRemove mb-3">
+                        @Html.TextBox(Model.GetType().GetProperty(key).Name, value: Model.GetType().GetProperty(key).GetValue(Model).ToString(), htmlAttributes: new { @class = "col-5 form-control d-inline-block" })
+                        -
+                        @Html.TextBox(Model.GetType().GetProperty(value).Name, value: Model.GetType().GetProperty(value).GetValue(Model).ToString(), htmlAttributes: new { @class = "col-5 form-control d-inline-block" })
+                        <a href="#" class="remove_field btn btn-danger mb-1 ml-2"><i class="far fa-trash-alt"></i></a>
+                    </div>
+                }
+            }
+        </div>
+        <button class="add_field_button btn btn-success mb-3">Добави поле</button>
+        <input type="text" style="visibility: hidden" id="positioner" value="" />
+    </div>
+    <input type="submit" class="btn btn-success col-12" name="name" value="Запази промени" />
+</form>
+<br>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="~/js/param.add.fields-1.3.min.js"></script>
+    <script src="~/js/img.upload-1.0.min.js"></script>
+}

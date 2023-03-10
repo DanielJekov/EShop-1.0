@@ -1,0 +1,39 @@
+﻿@model EShop.Models.ServiceModels.Bag.StatusFormModel
+<div class="modal fade" id="exampleModalCenter-@Model.PurchaseId" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Промяна на статус на поръчка</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-area="Administrator" asp-controller="Bag" asp-action="PurchaseProcess" enctype="multipart/form-data" method="post">
+
+                    <div class="form-group">
+                        <label class="h6">Статус: </label>
+                        <select asp-for="@Model.Status" class="form-control"
+                                asp-items="Html.GetEnumSelectList<EShop.Models.ServiceModels.Bag.Status>()">
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="h6">Коментар:</label>
+                        <textarea asp-for=@Model.Description class="form-control"></textarea>
+                    </div>
+
+                    <input type="hidden" name="purchaseId" value="@Model.PurchaseId" />
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
+                    <input type="submit" class="btn btn-success" value="Запази" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

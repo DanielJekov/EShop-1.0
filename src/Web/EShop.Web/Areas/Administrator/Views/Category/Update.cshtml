@@ -1,0 +1,39 @@
+﻿@model EShop.Models.ServiceModels.Categories.CategoryFormModel
+@inject EShop.Services.Categories.ICategoryService categoryService
+@{
+    this.ViewData["Title"] = $"Редакция на {Model.Name}";
+
+    var positionsCount = categoryService.GetCount();
+    var positions = Enumerable.Range(1, positionsCount).ToArray();
+}
+<form asp-area="Administrator" asp-controller="Category" asp-action="Update" method="post">
+
+    <div class="form-group">
+        <label class="font-weight-bold">Име на категория</label>
+        <input class="form-control" id="disabledInput" type="text" placeholder="@Model.Name" disabled>
+
+        <label class="font-weight-bold">Ново Име</label>
+        <input asp-for="@Model.Name" type="text" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label class="font-weight-bold">Позиция</label>
+        <input class="form-control" id="disabledInput" type="text" placeholder="@Model.Position" disabled>
+
+        <label class="font-weight-bold">Избери нова позиция</label>
+        <select asp-for="Position" class="form-control">
+            @foreach (var position in positions)
+            {
+                <option value="@position">@position</option>
+            }
+        </select>
+    </div>
+    <input asp-for="@Model.Id" type="hidden" value="@Model.Id" />
+
+    <input type="submit" class="btn btn-success col-12" value="Запази промени" />
+</form>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

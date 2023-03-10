@@ -1,0 +1,19 @@
+﻿@model EShop.Models.ViewModels.ArticleViewModel
+@inject EShop.Services.Articles.IArticleService articleService
+@{
+    this.ViewData["Title"] = "Избор за редакция";
+    var articles = articleService.GetAll();
+}
+
+<form asp-area="Administrator" asp-controller="Article" asp-action="Update" method="get">
+    <div class="form-group">
+        <h6>Избери артикул:</h6>
+        <select asp-for="Id" class="form-control">
+            @foreach (var article in articles)
+            {
+                <option value="@article.Id">@article.Name</option>
+            }
+        </select>
+    </div>
+    <input type="submit" class="btn btn-primary mb-2" value="Избери" />
+</form>

@@ -1,0 +1,9 @@
+﻿@model ICollection<EShop.Models.ViewModels.ArticleViewModel>
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var article in Model)
+        {
+            <partial name="_ArticlePrintPartial" model="@article" />
+        }
+    </div>
+</div>

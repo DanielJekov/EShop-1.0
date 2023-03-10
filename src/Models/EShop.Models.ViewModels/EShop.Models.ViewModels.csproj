@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\EShop.Data.Models\EShop.Data.Models.csproj" />
+    <ProjectReference Include="..\EShop.Models.ServiceModels\EShop.Models.ServiceModels.csproj" />
+  </ItemGroup>
+
+</Project>

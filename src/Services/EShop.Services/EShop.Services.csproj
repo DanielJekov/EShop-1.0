@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="1\**" />
+    <EmbeddedResource Remove="1\**" />
+    <None Remove="1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CloudinaryDotNet" Version="1.15.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\EShop.Data.Models\EShop.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\EShop.Data\EShop.Data.csproj" />
+    <ProjectReference Include="..\..\Models\EShop.Models.ServiceModels\EShop.Models.ServiceModels.csproj" />
+    <ProjectReference Include="..\..\Models\EShop.Models.ViewModels\EShop.Models.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

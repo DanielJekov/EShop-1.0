@@ -1,0 +1,75 @@
+﻿@model EShop.Models.ViewModels.Bag.OrdeViewModel
+@{
+    ViewData["Title"] = "Поръчки";
+}
+<div class="row">
+    <div class="col-12 card mb-5">
+        <h5 class="pt-2">Обща информация</h5>
+        <hr style="background-color: black">
+        <table class="table table-striped h6">
+            <tr>
+                <td>Приети за обработка</td>
+                <td>@Model.ProcessingCount</td>
+            </tr>
+            <tr>
+                <td>Изпратени</td>
+                <td>@Model.ShippedCount</td>
+            </tr>
+            <tr>
+                <td>Приключени</td>
+                <td>@Model.FinishedCount</td>
+            </tr>
+            <tr>
+                <td>Отказани</td>
+                <td>@Model.RejectedCount</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-12">
+        <h4>Поръчки</h4>
+        <hr style="background-color: black">
+        @foreach (var purchase in Model.Purchases)
+        {
+            <div class="card-header container">
+                <div class="row">
+                    <div class="col-6 text-left h6">Имейл: @purchase.Email</div>
+                    <div class="col-6 text-right h6">Създадена на: @purchase.CreatedOn.ToString("")</div>
+                </div>
+            </div>
+            <div class="container card">
+                <div class="row">
+                    <div class="col-4">
+                        <ul class="list-unstyled">
+                            <li class="pt-2  h6"> @purchase.Names </li>
+                            <li class=" pt-2 h6">@purchase.PhoneNumber</li>
+                        </ul>
+                    </div>
+                    <div class="col-2 pt-2 text-center">
+                        <div class="small pb-2">@purchase.Description</div>
+                    </div>
+                    <div class="col-2 pt-2 text-center">
+                        @foreach (var article in purchase.Articles)
+                        {
+                            <span class="h6">@article.Name</span>
+                            <br>
+                            <span class="h6"> @article.Quantity бр.</span>
+                            <span> x </span>
+                            <span class="h6"> @article.Price лв.</span>
+                            <br>
+                        }
+                    </div>
+                    <div class="col-2 pt-2 text-center">
+                        <span class="h6">Обща цена:</span> <span> @purchase.TotalPrice.ToString("f2") лв.</span>
+                    </div>
+                    <div class="col-2 pt-2 text-center">
+                        <span class="h6">Статус</span>
+                        <partial name="_StatusButtonPartial" model="@purchase.StatusForm" />
+                        <partial name="_ModalChangeStatusPartial" model="@purchase.StatusForm" />
+                    </div>
+                </div>
+            </div>
+            <br>
+        }
+    </div>
+</div>

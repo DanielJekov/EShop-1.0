@@ -1,0 +1,32 @@
+﻿@model EShop.Models.ServiceModels.Bag.QuickPurchaseInputModel
+<div class="card-header col-12 col-md-11 ml-md-5" id="quickPurchase">
+    <h6 class="card-header text-dark" style="background-color: lightgray">Направи бърза поръчка:</h6>
+    <br>
+    <form asp-area="" asp-controller="Bag" asp-action="QuickPurchase" method="post">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <input asp-for=Names type="text" class="form-control" placeholder="Две имена:">
+                <span asp-validation-for="Names" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 pb-md-4 mb-3">
+                <input asp-for="Email" type="text" class="form-control" placeholder="Имейл:">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <input asp-for="Address" type="text" class="form-control" placeholder="гр.Варна ул.'Академик Методи Попов' №1">
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <input asp-for="PhoneNumber" type="text" class="form-control" placeholder="Телефон:">
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <textarea asp-for="Description" class="form-control" placeholder="Коментар:"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <input type="hidden" name="articleId" value="@ViewData["ArticleId"]" />
+        <input type="submit" class="btn btn-warning" value="Поръчай">
+    </form>
+</div>

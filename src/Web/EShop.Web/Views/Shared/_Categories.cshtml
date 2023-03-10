@@ -1,0 +1,35 @@
+﻿
+
+<table class="table table-bordered col-12">
+    <thead class="text-white" style="background-color: crimson">
+        <tr>
+            <th class="h6">Категории</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <a class="text-dark" asp-area="" asp-controller="Article" asp-action="GetByCategory" asp-route-ime="Акумулатори">Акумулатори</a>
+                    <a class="text-dark" data-toggle="collapse" href="#Акумулатори" role="button" aria-expanded="false" aria-controls="Акумулатори">
+                        <i class="fas fa-angle-double-right small  float-md-right"></i>
+                    </a>
+                    <ul class="collapse list-unstyled pl-3" id="Акумулатори">
+                            <li><a class="text-dark" asp-area="" asp-controller="Article" asp-action="GetBySubcategory" asp-route-ime="Стартерни">Стартерни</a></li>
+                            <li><a class="text-dark" asp-area="" asp-controller="Article" asp-action="GetBySubcategory" asp-route-ime="Start-stop">Start-stop</a></li>
+                            <li><a class="text-dark" asp-area="" asp-controller="Article" asp-action="GetBySubcategory" asp-route-ime="Тягови">Тягови</a></li>
+                            <li><a class="text-dark" asp-area="" asp-controller="Article" asp-action="GetBySubcategory" asp-route-ime="Мото">Мото</a></li>
+                    </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a class="text-dark" asp-area="" asp-controller="Article" asp-action="GetByCategory" asp-route-ime="Гуми">Гуми</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a class="text-dark" asp-area="" asp-controller="Article" asp-action="GetByCategory" asp-route-ime="Аксесоари">Аксесоари</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

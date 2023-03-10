@@ -1,0 +1,21 @@
+﻿@model EShop.Models.ServiceModels.Categories.CategoryServiceModel
+@{
+    this.ViewData["Title"] = "Създаване на категория";
+}
+
+<div class="col-9 pt-3 pr-5">
+    <form asp-area="Administrator" asp-controller="Category" asp-action="Create" method="post">
+        <div class="form-group">
+            <label>Име на категория</label>
+            <input asp-for="Name" class="form-control" placeholder="Пример: Гуми">
+            <span asp-validation-for="Name" class="small text-danger"></span>
+            <br>
+            <input type="submit" class="btn btn-primary mb-2" value="Създай" />
+        </div>
+    </form>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

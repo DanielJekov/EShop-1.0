@@ -1,0 +1,28 @@
+﻿@model EShop.Models.ViewModels.Articles.IndexPageViewModel
+@{
+    ViewData["Title"] = "Начало";
+}
+
+@if (Model.OnFocus.Count() > 0)
+{
+    <h4 class="text-center">Продукти на фокус:</h4>
+    <hr style="background-color: black" class="mb-5 " />
+    //<div class="card-header text-white h6" style="background-color: green"></div>
+    <div class="row pt-4 pb-5">
+        @foreach (var article in Model.OnFocus)
+        {
+            <partial name="_ArticlePrintPartial" model="@article" />
+        }
+    </div>
+}
+@{//<div class="card-header text-white h6" style="background-color: green">Най-нови продукти:</div>
+}
+<h4 class="text-center">Най-нови продукти:</h4>
+<hr style="background-color: black" class="mb-5 " />
+<div class="row pt-4">
+
+    @foreach (var article in Model.Newer10)
+    {
+        <partial name="_ArticlePrintPartial" model="@article" />
+    }
+</div>

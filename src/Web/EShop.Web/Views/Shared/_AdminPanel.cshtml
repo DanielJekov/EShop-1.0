@@ -1,0 +1,61 @@
+﻿
+<table class="table table-bordered text-right">
+    <thead class="text-white" style="background-color: crimson">
+        <tr>
+            <th class="h6">Админ Панел</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <a class="text-dark" data-toggle="collapse" href="#Articles" role="button" aria-expanded="false" aria-controls="Articles">
+                    <i class="fas fa-angle-double-left small float-left"></i>
+                    <span class="text-dark font-weight-normal">Артикули</span>
+                </a>
+                <ul class="collapse list-unstyled" id="Articles">
+                    <li><a class="text-dark" asp-area="Administrator" asp-controller="Article" asp-action="Create">Създай</a></li>
+                    <li> <a class="text-dark" asp-area="Administrator" asp-controller="Article" asp-action="ChooseToUpdate">Редактирай</a></li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a class="text-dark" data-toggle="collapse" href="#Categories" role="button" aria-expanded="false" aria-controls="Categories">
+                    <i class="fas fa-angle-double-left small float-left"></i>
+                    <span class="text-dark font-weight-normal">Категории</span>
+                </a>
+                <ul class="collapse list-unstyled " id="Categories">
+                    <li><a class="text-dark" asp-area="Administrator" asp-controller="Category" asp-action="Create">Създай</a></li>
+                    <li><a class="text-dark" asp-area="Administrator" asp-controller="Category" asp-action="ChooseToUpdate">Редактирай</a></li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a class="text-dark" data-toggle="collapse" href="#Subcategories" role="button" aria-expanded="false" aria-controls="Subcategories">
+                    <i class="fas fa-angle-double-left small float-left"></i>
+                    <span class="text-dark font-weight-normal">Подкатегории</span>
+                </a>
+                <ul class="collapse list-unstyled" id="Subcategories">
+                    <li><a class="text-dark" asp-area="Administrator" asp-controller="Subcategory" asp-action="Create">Създай</a></li>
+                    <li> <a class="text-dark" asp-area="Administrator" asp-controller="Subcategory" asp-action="ChooseToUpdate">Редактирай</a></li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a class="text-dark" data-toggle="collapse" href="#Others" role="button" aria-expanded="false" aria-controls="Others">
+                    <i class="fas fa-angle-double-left small float-left"></i>
+                    <span class="text-dark font-weight-normal">Други</span>
+                </a>
+                <ul class="collapse list-unstyled " id="Others">
+                    <li><a class="text-dark" asp-area="Administrator" asp-controller="Category" asp-action="Create">Редакция на контанти</a></li>
+                    <li><a class="text-dark" asp-area="Administrator" asp-controller="Category" asp-action="ChooseToUpdate">Редакция на местоположение</a></li>
+                    <li><a class="text-dark" asp-area="Administrator" asp-controller="Category" asp-action="ChooseToUpdate">Редакция на поверителност</a></li>
+                    <li><a class="text-dark" asp-area="Administrator" asp-controller="Category" asp-action="ChooseToUpdate">Редакция за нас</a></li>
+                    <li><a class="text-dark" asp-area="Administrator" asp-controller="Category" asp-action="ChooseToUpdate">Редакция за телефонен номер</a></li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>

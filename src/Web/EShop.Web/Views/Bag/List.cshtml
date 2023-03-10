@@ -1,0 +1,91 @@
+﻿@model ICollection<ArticleViewModel>
+@{
+    ViewData["Title"] = "Количка";
+}
+
+@if (Model.Count() == 0)
+{
+    <h4 class="card text-center pb-5 pt-5" style="background-color: lightgray">Количката е празна</h4>
+}
+
+else
+{
+    <form asp-area="" asp-controller="Bag" asp-action="FinishPurchase" method="get">
+        <div class="row">
+            <div class="col-md-11 col-lg-8 col-sm-11 col-12  ml-sm-5 ml-5 ml-md-5 ml-lg-0 ">
+                <h4> Продукти в количката</h4>
+                <hr style="background-color: black">
+                @{
+                    var count = 0;
+                    decimal price = 0.00m;
+                }
+                @foreach (var article in Model)
+                {
+                    if (article.DiscountPrice.HasValue)
+                    {
+                        price = article.DiscountPrice.Value;
+                    }
+                    else
+                    {
+                        price = article.Price;
+                    }
+                    <input type="hidden" name="articleId" value="@article.Id" />
+                    count++;
+                    <div class="card">
+                        <div class="row">
+                            <img class="card-img-top embed-responsive-4by3 col-3 col-sm-2 col-md-2 col-lg-2 col-xl-2" src="@article.PictureUrl" />
+                            <div class="col-4 col-sm-4">
+                                <h6 class="pt-2">@article.Name</h6>
+                                <ul class="list-unstyled">
+                                    <li class="small">
+                                        Състояние:
+                                        <span class="text-success">Ново</span>
+                                    </li>
+                                    <li class="small">Гаранция: 24 месеца</li>
+                                </ul>
+                            </div>
+                            <div class="col-2 pt-3 text-center">
+                                <div class="small pb-2">Количество</div>
+                                <div>
+                                    <select class="form-select" name="Quantity" onclick="check_quantity(@count),calculate_total()" id="quantity:@count" aria-label="Default select example">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-3 col-sm-2 pt-2 text-center">
+                                <div style="visibility: hidden" id="constPrice:@count">@price</div>
+                                <calculatedPrice id="price:@count" name="price:@count">@price</calculatedPrice><span> лв</span>
+                                <div class="badge badge-danger"><a class="text-white text-decoration-none" asp-area="" asp-controller="Bag" asp-action="Remove" asp-route-id="@article.Id">Премахни</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                }
+            </div>
+            <div class="col-md-11 col-lg-4 col-sm-11 col-12  ml-sm-5 ml-5 ml-md-5 ml-lg-0 card">
+                <h5 class="pt-2">Информация за поръчката</h5>
+                <hr style="background-color: black">
+                <span class="h6">
+                    Всички продукти: <span id="result"></span> лв
+                </span>
+                <div class="h6">Такса за доставка:</div>
+                <br>
+                <input class="btn btn-success" type="submit" value="Финализирай поръчката" />
+                <br>
+            </div>
+        </div>
+    </form>
+}
+
+@section Scripts {
+    <script src="~/js/calc.bag-1.0.min.js"></script>
+}

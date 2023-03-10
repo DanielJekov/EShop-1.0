@@ -1,0 +1,77 @@
+﻿@model EShop.Models.ServiceModels.Bag.FinishPurchaseInputModel
+@{
+    ViewData["Title"] = "Завършване на поръчка";
+}
+<div class="ml-md-5 ml-sm-5 col-sm-12">
+    <h4>Данни за поръчка</h4>
+    <hr style="background-color: black">
+
+    <form asp-area="" asp-controller="Bag" asp-action="FinishPurchase" method="post">
+        <div class="card">
+            <div class="card-header h6">
+                <span class="text-secondary "> Стъпка 1:</span>  Данни за доставката
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="h6">Лице за контакт <a class="small float-none" asp-area="Identity" asp-page="/Account/Manage/Index">Редактирай</a> </div>
+                    <div>@Model.Names - @Model.PhoneNumber</div>
+                </div>
+                <div class="col-6">
+                    <div class="h6">Адрес за доставка</div>
+                    <div> @Model.Address</div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="col-12">
+                    <div class="h6">Друг адрес за текущата доставка:</div>
+                    <div class="form-group">
+                        <input asp-for="AdditionalAddress" class="form-control" type="text" name="AdditionalAddress" value="" />
+                    </div>
+                    <div class="form-group">
+                        <h6>Коментар за поръчката <span class="small">(тук може да въведете офис на куриер до който да дойде поръчката)</span></h6>
+                        <textarea asp-for="Description" class="form-control" name="Description"></textarea>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-header h6">
+                <span class="text-secondary "> Стъпка 2:</span> Начин за плащане
+            </div>
+            <div class="card-body">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Наложен платеж
+                    </label>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-header h6">
+                <span class="text-secondary "> Стъпка 3:</span>   Информация за поръчката
+            </div>
+            <div class="row card-body">
+                <div class="col-sm-6">
+                    <h6>
+                        Доставка: @Model.DeliveryTax лв
+                    </h6>
+                    <h6>
+                        Обща стойност: @Math.Round(Model.TotalPrice, 2) лв
+                    </h6>
+                </div>
+                <div class="col-6 text-right">
+                    <input class="btn btn-success" type="submit" value="Завърши поръчката" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

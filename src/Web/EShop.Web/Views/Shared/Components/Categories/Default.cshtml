@@ -1,0 +1,31 @@
+﻿@model ICollection<EShop.Models.ViewModels.CategoryViewModel>
+
+<table class="table table-bordered col-12">
+    <thead class="text-white" style="background-color: crimson">
+        <tr>
+            <th class="h6">Категории</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>
+                    <a class="text-dark" asp-area="" asp-controller="Article" asp-action="GetByCategory" asp-route-ime="@category.Name">@category.Name</a>
+                    @if (category.Subcategories.Any())
+                    {
+                        <a class="text-dark" data-toggle="collapse" href="#@category.Name.Replace(" ", string.Empty)" role="button" aria-expanded="false" aria-controls="@category.Name.Replace(" ", string.Empty)">
+                            <i class="fas fa-angle-double-right small  float-md-right"></i>
+                        </a>
+                        <ul class="collapse list-unstyled pl-3" id="@category.Name.Replace(" ", string.Empty)">
+                            @foreach (var subCategory in category.Subcategories)
+                            {
+                                <li><a class="text-dark" asp-area="" asp-controller="Article" asp-action="GetBySubcategory" asp-route-ime="@subCategory.Name">@subCategory.Name</a></li>
+                            }
+                        </ul>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

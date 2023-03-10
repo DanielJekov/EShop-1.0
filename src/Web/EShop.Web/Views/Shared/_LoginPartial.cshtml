@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<EShop.Data.Models.EShopUser> SignInManager
+@inject UserManager<EShop.Data.Models.EShopUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                <i class="h5 fas fa-cog"></i>
+            </a>
+        </li>
+        <li class="nav-item ml-lg-3">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">
+                    <h6>
+                        Изход
+                        <i class="fas fa-sign-out-alt"></i>
+                    </h6>
+                </button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">
+                <h6>
+                    Вход
+                    <i class=" fas fa-sign-in-alt"></i>
+                </h6>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">
+                <h6>
+                    Регистрация
+                </h6>
+            </a>
+        </li>
+    }
+</ul>

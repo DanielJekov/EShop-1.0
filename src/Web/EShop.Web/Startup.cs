@@ -20,7 +20,7 @@ namespace EShop.Web
     using EShop.Services.User;
 
     using CloudinaryDotNet;
-
+     
     public class Startup
     {
         private readonly IConfiguration configuration;

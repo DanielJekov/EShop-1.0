@@ -18,7 +18,7 @@ namespace EShop.Web
     using EShop.Services.Bag;
     using EShop.Services.Cloudinary;
     using EShop.Services.User;
-     
+       
     using CloudinaryDotNet;
      
     public class Startup
